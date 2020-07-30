@@ -17,7 +17,7 @@ const usersTable = (sequelize, DataTypes) => {
     },
     password: {
       allowNull: false,
-      type: DataTypes.STRING    // how do I hash it here?
+      type: DataTypes.STRING    // how do I hash it here? In the controller?
     }
     
   })

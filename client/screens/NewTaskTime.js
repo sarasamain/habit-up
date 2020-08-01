@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, SafeAreaView, Alert, Picker } from 'react-native';
+import { v4 as uuidv4 } from 'uuid';
 
 const BASE_URL = 'http://192.168.8.104:3003';
 const taskColors = [
@@ -10,32 +11,27 @@ const taskColors = [
   {colorCode: 'beige', displayName: 'Beige'},
 ];
 
-const taskTypes = [
-  {type: 'count', displayName: 'Count'},
-  {type: 'time', displayName: 'Time'},
-  {type: 'check', displayName: 'Check off'},
-];
-
 const unitTypes = [
-  {unit: 'once', displayName: 'Once'},
-  {unit: 'reps', displayName: 'Repetitions'},
   {unit: 'hours', displayName: 'Hours'},
   {unit: 'minutes', displayName: 'Minutes'},
   {unit: 'seconds', displayName: 'Seconds'},
 ];
 
-const NewTaskModal = ({ navigation }) => {
+const NewTaskTime = ({ navigation, route }) => {
 
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [taskGoal, setTaskGoal] = useState('0');
   const [taskColor, setTaskColor] = useState('lavender');
-  const [taskType, setTaskType] = useState('count');
   const [taskUnit, setTaskUnit] = useState('count');
+
+  const { type } = route.params;
+  console.log('typeeeeeeeee', type);
 
   const handleSubmit = () => {
     const needsRefresh = true;
-    const randomId = '' + (Math.round(Math.random() * 1000000));
+    const randomId = uuidv4();
+    console.log({randomId});
 
     if (!taskName || !taskDescription || parseInt(taskGoal) === 0 ) {
       Alert.alert('All inputs must be filled');
@@ -46,7 +42,6 @@ const NewTaskModal = ({ navigation }) => {
         description: taskDescription,
         goal: taskGoal,
         color: taskColor,
-        type: taskType,
         currentStreak: 0,
         maxStreak: 0,
       };
@@ -107,22 +102,11 @@ const NewTaskModal = ({ navigation }) => {
               <Picker.Item style={styles.pickerItem} label={color.displayName} value={color.colorCode} />
               ))}
         </Picker>
-        <Text style={styles.text}>Type</Text>
-        <Picker
-          style={styles.picker}
-          selectedValue={taskType}
-          onValueChange={itemValue => 
-            setTaskType(itemValue)
-          }>
-            {taskTypes.map(type => (
-              <Picker.Item style={styles.pickerItem} label={type.displayName} value={type.type} />
-              ))}
-        </Picker>
         <Text style={styles.text}>Daily Goal</Text>
         <TextInput
           style={styles.input}
           value={taskGoal}
-          // keyboardType="numeric"
+          keyboardType="numeric"
           onChangeText={setTaskGoal}
           placeholder="Ex. 10"
         />
@@ -137,7 +121,7 @@ const NewTaskModal = ({ navigation }) => {
               ))}
         </Picker>
         <TouchableOpacity onPress={handleSubmit}>
-          <Text style={styles.add} >Add </Text>
+          <Text style={styles.add} >Add Task </Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -148,9 +132,9 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: 'white',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 10,
+    padding: 30,
   },
   text: {
     fontSize: 18,
@@ -167,7 +151,7 @@ const styles = StyleSheet.create({
   add: {
     backgroundColor: 'purple',
     color: 'white',
-    margin: 20,
+    marginHorizontal: 80,
     padding: 20,
     borderRadius: 10,
     fontSize: 20,
@@ -182,4 +166,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewTaskModal;
+export default NewTaskTime;

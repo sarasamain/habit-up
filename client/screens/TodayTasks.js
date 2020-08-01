@@ -13,8 +13,8 @@ const TodayTasks = ({ navigation, route }) => {
   const handleFetchTasks = async () => {
     try {
       const result = await fetch(BASE_URL + '/tasks');
-      console.log('result', result);
       const dbtasks = await result.json();
+      console.log('tasks', tasks);
       setTasks(dbtasks);
     } catch (error) {
       console.log('error', error);
@@ -55,7 +55,7 @@ const TodayTasks = ({ navigation, route }) => {
         />
         <View style={styles.footer}>
           <TouchableOpacity onPress={() => {
-            navigation.navigate('NewTaskModal');
+            navigation.navigate('TaskTypes');
           }}>
             <Text style={styles.newTaskText}>+ Add Task </Text>
           </TouchableOpacity>

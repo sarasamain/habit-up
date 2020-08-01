@@ -1,10 +1,10 @@
 const router = require('express').Router();
-// const controller;
+const controller = require('./controllers/tasks');
 
-router.get('/user', (req, res) => {
-  res.send("I got to the get request");
-});
-router.post('/tasks/:username', () => {});
-router.put('/tasks/:username/:taskname', () => {});
+// router.get('/test', (req, res) => {
+//   res.send("I got to the get request");
+// });
+router.get('/tasks', controller.getTasks);
+router.post('/tasks', controller.postTask);
 
 module.exports = router;

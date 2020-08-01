@@ -6,8 +6,6 @@ const app = express();
 
 const PORT = 3003;
 
-
-
 app.use(cors()); //remember to change cors to allow only client
 app.use(express.json());
 app.use(router);

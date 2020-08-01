@@ -1,30 +1,30 @@
 const tasks = [
-  { taskId:'task001', taskName: 'Water plants ', description: 'Cause otherwise they die', color: 'lightblue', currentSreak: 1, maxStreak: 5, type: 'check', goal: 1},
-  { taskId:'task002', taskName: 'Push ups', description: 'Need to get fit for (next) summer', color: 'lavender', currentSreak: 1, maxStreak: 5, type: 'count', goal: 10},
-  { taskId:'task003', taskName: '5 a day', description: 'Healthy and balanced diet!', color: 'pink', currentSreak: 1, maxStreak: 5, type: 'count', goal: 5},
-  // { taskId:'task004', taskName: 'Solo Project', description: 'I need a joooob', color: 'lavender', currentSreak: 1, maxStreak: 5, type: 'time', goal: 36000},
-  // { taskId:'task005', taskName: 'Social Media', description: 'Because they are evil', color: 'lightblue', currentSreak: 1, maxStreak: 5, type: 'time', goal: 600},
-  // { taskId:'task006', taskName: 'Play with cat', description: 'She is just SO CUTEEEE', color: 'pink', currentSreak: 1, maxStreak: 5, type: 'count', goal: 1200},
-  // { taskId:'task007', taskName: 'Other task 01', description: 'Reason to do it', color: 'whitesmoke', currentSreak: 1, maxStreak: 5, type: 'check', goal: 10},
-  // { taskId:'task008', taskName: 'Other task 02', description: 'Reason to do it', color: 'whitesmoke', currentSreak: 1, maxStreak: 5, type: 'check', goal: 10},
-  // { taskId:'task009', taskName: 'Other task 03', description: 'Reason to do it', color: 'whitesmoke', currentSreak: 1, maxStreak: 5, type: 'check', goal: 10},
-  // { taskId:'task010', taskName: 'Other task 04', description: 'Reason to do it', color: 'whitesmoke', currentSreak: 1, maxStreak: 5, type: 'check', goal: 10},
-  // { taskId:'task011', taskName: 'Other task 05', description: 'Reason to do it', color: 'whitesmoke', currentSreak: 1, maxStreak: 5, type: 'check', goal: 10},
-  { taskId:'task012', taskName: 'Other task 06', description: 'Reason to do it', color: 'whitesmoke', currentSreak: 1, maxStreak: 5, type: 'check', goal: 10},
+  { taskId:'task001', taskName: 'Water plants ', description: 'Cause otherwise they die', color: 'lightblue', currentStreak: 12, maxStreak: 15, type: 'check', goal: 1},
+  { taskId:'task002', taskName: 'Push ups', description: 'Need to get fit for (next) summer', color: 'lavender', currentStreak: 10, maxStreak: 25, type: 'count', goal: 10},
+  { taskId:'task003', taskName: '5 a day', description: 'Healthy and balanced diet!', color: 'pink', currentStreak: 7, maxStreak: 15, type: 'count', goal: 5},
+  { taskId:'task004', taskName: 'Solo Project', description: 'I need a joooob', color: 'lavender', currentStreak: 1, maxStreak: 5, type: 'time', goal: 36000},
+  { taskId:'task005', taskName: 'Social Media', description: 'Because they are evil', color: 'lightblue', currentStreak: 1, maxStreak: 5, type: 'time', goal: 600},
+  { taskId:'task006', taskName: 'Play with cat', description: 'She is just SO CUTEEEE', color: 'pink', currentStreak: 1, maxStreak: 5, type: 'count', goal: 1200},
 ];
 
 const getTasks = async (req, res) => {
-  console.log('Something!! Get tasks')
-  res.send(tasks);
+  try {
+    res.status(200);
+    res.send(tasks);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+  }
 };
 
 const postTask = async (req, res) => {
   try {
-    console.log('Trying to post a new task', req.body);
     const newTask = req.body;
     tasks.push(newTask);
-    res.send(newTask)
+    res.status(201);
+    res.send(newTask);
   } catch (error) {
+    res.status(500);
     console.log(error);
   }
 };

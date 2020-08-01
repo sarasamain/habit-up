@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // eslint-disable-next-line prettier/prettier
-const TaskBox = ({ taskName, description, color, currentStreak, maxStreak, type, goal }) => {
+const TaskBox = ({ taskName, description, color, goal }) => {
   const boxColor = {
     backgroundColor: color,
   };
@@ -18,7 +18,6 @@ const TaskBox = ({ taskName, description, color, currentStreak, maxStreak, type,
 
 const styles = StyleSheet.create({
   taskNameText: {
-    color: 'black',
     fontWeight: 'bold',
     fontSize: 18,
   },
@@ -36,7 +35,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginVertical: 10,
+    marginHorizontal: 30,
   },
 });
 

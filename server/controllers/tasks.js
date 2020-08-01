@@ -1,4 +1,4 @@
-const tasks = [
+let tasks = [
   { taskId:'task001', taskName: 'Water plants ', description: 'Cause otherwise they die', color: 'lightblue', currentStreak: 12, maxStreak: 15, type: 'check', goal: 1},
   { taskId:'task002', taskName: 'Push ups', description: 'Need to get fit for (next) summer', color: 'lavender', currentStreak: 10, maxStreak: 25, type: 'count', goal: 10},
   { taskId:'task003', taskName: '5 a day', description: 'Healthy and balanced diet!', color: 'pink', currentStreak: 7, maxStreak: 15, type: 'count', goal: 5},
@@ -29,5 +29,18 @@ const postTask = async (req, res) => {
   }
 };
 
+const deleteTask = async (req, res) => {
+  try {
+    const deleteTaskId = req.params.id;
+    console.log('back end is receiving delete request for task id', deleteTaskId)
+    tasks = tasks.filter((task) => task.taskId !== deleteTaskId );
+    res.status(201);
+    res.send(deleteTaskId);
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+  }
+};
 
-module.exports = { tasks, getTasks, postTask };
+
+module.exports = { getTasks, postTask, deleteTask };

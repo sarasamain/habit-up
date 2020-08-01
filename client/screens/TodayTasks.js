@@ -3,39 +3,31 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import TaskBox from '../components/TaskBox';
-
-const BASE_URL = 'http://192.168.8.104:3003';
+import ApiClient from '../ApiClient';
 
 const TodayTasks = ({ navigation, route }) => {
   const [tasks, setTasks] = useState([]);
   const needsRefresh = route.params ? route.params.needsRefresh : null;
-  
-  const handleFetchTasks = async () => {
-    try {
-      const result = await fetch(BASE_URL + '/tasks');
-      const dbtasks = await result.json();
-      console.log('tasks', tasks);
-      setTasks(dbtasks);
-    } catch (error) {
-      console.log('error', error);
-    }
+
+  const refreshTasks = async () => {
+    const allTasks = await ApiClient.getAllTasks();
+    setTasks(allTasks);
   };
 
   useEffect(() => {
-    handleFetchTasks();
+    refreshTasks();
   }, []);
 
   useEffect(() => {
     console.log('Params changed', route.params);
     if (needsRefresh) {
-      handleFetchTasks();
+      refreshTasks();
     }
   }, [route.params]);
 
-
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* <ScrollView> */}
+      <Text style={styles.welcomeText}> Welcome back ! </Text>
         <FlatList
           // numColumns={2}
           style={styles.container}
@@ -60,16 +52,15 @@ const TodayTasks = ({ navigation, route }) => {
             <Text style={styles.newTaskText}>+ Add Task </Text>
           </TouchableOpacity>
         </View>
-      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
+  welcomeText: {
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   safeArea: {
     paddingBottom: 80,

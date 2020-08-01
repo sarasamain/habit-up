@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, SafeAreaView, Alert, Picker } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput, SafeAreaView, Alert, Picker } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
+import ApiClient from '../ApiClient';
 
-const BASE_URL = 'http://192.168.8.104:3003';
 const taskColors = [
   {colorCode: 'lavender', displayName: 'Lavender'},
   {colorCode: 'pink', displayName: 'Pink'},
@@ -11,27 +11,68 @@ const taskColors = [
   {colorCode: 'beige', displayName: 'Beige'},
 ];
 
-const unitTypes = [
-  {unit: 'hours', displayName: 'Hours'},
-  {unit: 'minutes', displayName: 'Minutes'},
-  {unit: 'seconds', displayName: 'Seconds'},
-];
+// const unitTypes = [
+//   {unit: 'hours', displayName: 'Hours'},
+//   {unit: 'minutes', displayName: 'Minutes'},
+//   {unit: 'seconds', displayName: 'Seconds'},
+// ];
 
-const NewTaskTime = ({ navigation, route }) => {
+const NewTaskForm = ({ navigation, route }) => {
 
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [taskGoal, setTaskGoal] = useState('0');
   const [taskColor, setTaskColor] = useState('lavender');
-  const [taskUnit, setTaskUnit] = useState('count');
+  // const [taskUnit, setTaskUnit] = useState('count');
 
   const { type } = route.params;
-  console.log('typeeeeeeeee', type);
+  
+  const displayType = () => {
+    if (type === 'time') {
+      return (
+        <View>
+          <Text style={styles.text}>Daily Goal</Text>
+          <View style={styles.timeInput}>
+            <Text> Hours </Text>
+            <TextInput
+              style={styles.input}
+              value={taskGoal}
+              keyboardType="numeric"
+              onChangeText={setTaskGoal}
+              placeholder="hours"
+              />
+            <Text> Minutes </Text>
+            <TextInput
+              style={styles.input}
+              value={taskGoal}
+              keyboardType="numeric"
+              onChangeText={setTaskGoal}
+              placeholder="minutes"
+            />
+          </View>
+        </View>
+      );
+    } else if (type === 'count') {
+      return (
+        <View>
+          <Text style={styles.text}>Daily Goal</Text>
+          <View style={styles.countInput}>
+            <TextInput
+              style={styles.input}
+              value={taskGoal}
+              keyboardType="numeric"
+              onChangeText={setTaskGoal}
+              placeholder="Ex. 10"
+            />
+          </View>
+        </View>
+      );
+    };
+  };
 
   const handleSubmit = () => {
     const needsRefresh = true;
     const randomId = uuidv4();
-    console.log({randomId});
 
     if (!taskName || !taskDescription || parseInt(taskGoal) === 0 ) {
       Alert.alert('All inputs must be filled');
@@ -45,32 +86,12 @@ const NewTaskTime = ({ navigation, route }) => {
         currentStreak: 0,
         maxStreak: 0,
       };
-      console.log('newTask', newTask);
-      postTask(newTask)
+      ApiClient.postTask(newTask)
         .then(() => {
           navigation.navigate('TodayTasks', { needsRefresh });
         });
     };
   };
-
-  const postTask = async (body) => {
-    return fetchData('/tasks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body),
-    });
-  };
-
-  const fetchData = (path, options) => {
-    return fetch(BASE_URL + path, options)
-      .then(res => res.status < 400 ? res : Promise.reject(res))
-      .then(res => res.status !== 204 ? res.json() : res)
-      .catch(error => {
-        console.log('error', error);
-      });
-  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -102,15 +123,11 @@ const NewTaskTime = ({ navigation, route }) => {
               <Picker.Item style={styles.pickerItem} label={color.displayName} value={color.colorCode} />
               ))}
         </Picker>
-        <Text style={styles.text}>Daily Goal</Text>
-        <TextInput
-          style={styles.input}
-          value={taskGoal}
-          keyboardType="numeric"
-          onChangeText={setTaskGoal}
-          placeholder="Ex. 10"
-        />
-        <Picker
+        <View >
+          {displayType()}
+        </View>
+        
+        {/* <Picker
           style={styles.picker}
           selectedValue={taskUnit}
           onValueChange={itemValue => 
@@ -119,7 +136,8 @@ const NewTaskTime = ({ navigation, route }) => {
             {unitTypes.map(unitType => (
               <Picker.Item style={styles.pickerItem} label={unitType.displayName} value={unitType.unit} />
               ))}
-        </Picker>
+        </Picker> */}
+
         <TouchableOpacity onPress={handleSubmit}>
           <Text style={styles.add} >Add Task </Text>
         </TouchableOpacity>
@@ -151,6 +169,7 @@ const styles = StyleSheet.create({
   add: {
     backgroundColor: 'purple',
     color: 'white',
+    marginTop: 30,
     marginHorizontal: 80,
     padding: 20,
     borderRadius: 10,
@@ -164,6 +183,12 @@ const styles = StyleSheet.create({
   pickerItem: {
     backgroundColor: 'lavender',
   },
+  timeInput: {
+    flexDirection: 'column',
+  },
+  countInput: {
+
+  },
 });
 
-export default NewTaskTime;
+export default NewTaskForm;

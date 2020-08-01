@@ -1,12 +1,20 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import ApiClient from '../ApiClient';
 
-// { taskId:'task003', taskName: '5 a day', description: 'Healthy and balanced diet!', color: 'pink', currentSreak: 1, maxStreak: 5, type: 'count', goal: 5},
-// { taskId:'task004', taskName: 'Solo Project', description: 'I need a joooob', color: 'lavender', currentSreak: 1, maxStreak: 5, type: 'time', goal: 36000},
+const TaskDetails = ({ navigation, route }) => {
+  const { task } = route.params;
+  const id = task.taskId;
 
-const TaskDetails = ({ route }) => {
-  const { taskName, task } = route.params;
+  const handleDeleteTask = (id) => {
+    const needsRefresh = true;
+    
+    ApiClient.deleteTask(id)
+      .then(() => {
+        navigation.navigate('TodayTasks', { needsRefresh });
+      });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,6 +37,10 @@ const TaskDetails = ({ route }) => {
           </View>
         </View>
       </View>
+      <Text 
+        style={styles.deleteText}
+        onPress={() => handleDeleteTask(id)}
+      > Delete </Text>
     </SafeAreaView>
   );
 };
@@ -48,6 +60,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'grey',
     marginBottom: 20,
+  },
+  deleteText: {
+    color: 'purple',
+    backgroundColor: 'whitesmoke',
+    fontSize: 22,
+    margin: 20,
+    padding: 10,
+    borderWidth: 2,
+    borderRadius: 10,
   },
   container: {
     flex: 1,

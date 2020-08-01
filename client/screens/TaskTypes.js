@@ -19,7 +19,7 @@ const TaskTypes = ({ navigation }) => {
           keyExtractor={(item) => item.label}
           renderItem={({item}) => (
             <TouchableOpacity onPress={() => {
-              navigation.navigate('NewTaskTime', {
+              navigation.navigate('NewTaskForm', {
                 type: item.label,
               });
             }}>

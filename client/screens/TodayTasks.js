@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
-import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import TaskBox from '../components/TaskBox';
 import ApiClient from '../ApiClient';
 
@@ -19,7 +19,6 @@ const TodayTasks = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
-    console.log('Params changed', route.params);
     if (needsRefresh) {
       refreshTasks();
     }
@@ -27,31 +26,29 @@ const TodayTasks = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Text style={styles.welcomeText}> Welcome back ! </Text>
-        <FlatList
-          // numColumns={2}
-          style={styles.container}
-          data={tasks}
-          keyExtractor={(item) => item.taskId}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => {
-              navigation.navigate('TaskDetails', {
-                taskName: item.taskName,
-                task: item,
-              });
-            }}>
-              <TaskBox taskName={item.taskName} description={item.description} color={item.color} currentStreak={item.currentStreak} maxStreak={item.maxStreak} type={item.type} goal={item.goal} />
-            </TouchableOpacity>
-          )}
-          ListEmptyComponent={<Text>Add a New Task to get started!</Text>}
-        />
-        <View style={styles.footer}>
+      <FlatList
+        // numColumns={2}
+        style={styles.container}
+        data={tasks}
+        keyExtractor={(item) => item.taskId}
+        renderItem={({ item }) => (
           <TouchableOpacity onPress={() => {
-            navigation.navigate('TaskTypes');
+            navigation.navigate('TaskDetails', {
+              task: item,
+            });
           }}>
-            <Text style={styles.newTaskText}>+ Add Task </Text>
+            <TaskBox task={item} />
           </TouchableOpacity>
-        </View>
+        )}
+        ListEmptyComponent={<Text>Add a New Task to get started!</Text>}
+      />
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('TaskTypes');
+        }}>
+          <Text style={styles.newTaskText}>+ Add Task </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

@@ -11,22 +11,15 @@ const taskColors = [
   {colorCode: 'beige', displayName: 'Beige'},
 ];
 
-// const unitTypes = [
-//   {unit: 'hours', displayName: 'Hours'},
-//   {unit: 'minutes', displayName: 'Minutes'},
-//   {unit: 'seconds', displayName: 'Seconds'},
-// ];
-
 const NewTaskForm = ({ navigation, route }) => {
-
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
-  const [taskGoal, setTaskGoal] = useState('0');
   const [taskColor, setTaskColor] = useState('lavender');
-  // const [taskUnit, setTaskUnit] = useState('count');
-
+  const [taskGoal, setTaskGoal] = useState('0');
+  const [taskHours, setTaskHours] = useState('0');
+  const [taskMinutes, setTaskMinutes] = useState('0');
   const { type } = route.params;
-  
+
   const displayType = () => {
     if (type === 'time') {
       return (
@@ -36,18 +29,16 @@ const NewTaskForm = ({ navigation, route }) => {
             <Text> Hours </Text>
             <TextInput
               style={styles.input}
-              value={taskGoal}
+              value={taskHours}
               keyboardType="numeric"
-              onChangeText={setTaskGoal}
-              placeholder="hours"
+              onChangeText={setTaskHours}
               />
             <Text> Minutes </Text>
             <TextInput
               style={styles.input}
-              value={taskGoal}
+              value={taskMinutes}
               keyboardType="numeric"
-              onChangeText={setTaskGoal}
-              placeholder="minutes"
+              onChangeText={setTaskMinutes}
             />
           </View>
         </View>
@@ -62,7 +53,6 @@ const NewTaskForm = ({ navigation, route }) => {
               value={taskGoal}
               keyboardType="numeric"
               onChangeText={setTaskGoal}
-              placeholder="Ex. 10"
             />
           </View>
         </View>
@@ -74,17 +64,23 @@ const NewTaskForm = ({ navigation, route }) => {
     const needsRefresh = true;
     const randomId = uuidv4();
 
-    if (!taskName || !taskDescription || parseInt(taskGoal) === 0 ) {
+    if (!taskName || !taskDescription ) {
       Alert.alert('All inputs must be filled');
     } else {
       const newTask = {
         taskId: randomId,
         taskName,
         description: taskDescription,
-        goal: taskGoal,
         color: taskColor,
+        type,
+        goal: taskGoal,
+        hours: taskHours,
+        minutes: taskMinutes,
+        creationDate: Date.now(),
+        done: false,
         currentStreak: 0,
         maxStreak: 0,
+        history: [],
       };
       ApiClient.postTask(newTask)
         .then(() => {
@@ -126,18 +122,6 @@ const NewTaskForm = ({ navigation, route }) => {
         <View >
           {displayType()}
         </View>
-        
-        {/* <Picker
-          style={styles.picker}
-          selectedValue={taskUnit}
-          onValueChange={itemValue => 
-            setTaskUnit(itemValue)
-          }>
-            {unitTypes.map(unitType => (
-              <Picker.Item style={styles.pickerItem} label={unitType.displayName} value={unitType.unit} />
-              ))}
-        </Picker> */}
-
         <TouchableOpacity onPress={handleSubmit}>
           <Text style={styles.add} >Add Task </Text>
         </TouchableOpacity>

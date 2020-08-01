@@ -1,15 +1,47 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Alert } from 'react-native';
 import ApiClient from '../ApiClient';
 
 const TaskDetails = ({ navigation, route }) => {
   const { task } = route.params;
   const id = task.taskId;
+  const taskColorBackground = {
+    backgroundColor: task.color,
+  }
+
+  const creationDate = () => {
+    const date = new Date(task.creationDate);
+    const year = date.getFullYear().toString();
+    const month = date.getMonth().toString();
+    const day = date.getDate().toString();
+    return `${day} / ${month} / ${year}`;
+  };
+
+  const confirmDelete = (id) => {
+    Alert.alert(
+      'Delete Task',
+      'Are you sure you want to delete this task?',
+      [{
+        text: 'Cancel',
+        onPress: () => console.log('This task will be kept'),
+        style: 'cancel',
+      },
+      {
+        text: 'Ok',
+        onPress: () => {
+          console.log('This task will be deleted');
+          handleDeleteTask(id);
+        },
+      }],
+      { cancelable: false }
+    );
+  };
 
   const handleDeleteTask = (id) => {
     const needsRefresh = true;
-    
+
     ApiClient.deleteTask(id)
       .then(() => {
         navigation.navigate('TodayTasks', { needsRefresh });
@@ -17,13 +49,17 @@ const TaskDetails = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.safeArea, {borderColor: task.color}]}>
       <View>
-        <Text style={styles.nameText}> Task Details: </Text>
+        <View style={[styles.boxTitle]}>
+          <Text style={[styles.nameText, taskColorBackground]}> {task.taskName}: </Text>
+        </View>
         <Text style={styles.titleText}>Your Why: </Text>
         <Text style={styles.dataText}>{task.description}</Text>
+        <Text style={styles.titleText}>Creation Date: </Text>
+        <Text style={styles.dataText}>{creationDate()}</Text>
         <Text style={styles.titleText}>Task Type: </Text>
-        <Text style={styles.dataText}>{task.type}</Text>
+        <Text style={[styles.dataText, styles.capitalize]}>{task.type}</Text>
         <Text style={styles.titleText}>Your Daily Goal: </Text>
         <Text style={styles.dataText}>{task.goal}</Text>
         <View style={styles.streakView}>
@@ -37,9 +73,9 @@ const TaskDetails = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      <Text 
+      <Text
         style={styles.deleteText}
-        onPress={() => handleDeleteTask(id)}
+        onPress={() => confirmDelete(id)}
       > Delete </Text>
     </SafeAreaView>
   );
@@ -50,33 +86,42 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    marginLeft: 20,
+  },
+  boxTitle: {
+    justifyContent: 'center',
   },
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    marginLeft: 20,
   },
   dataText: {
     fontSize: 18,
     color: 'grey',
     marginBottom: 20,
+    marginLeft: 20,
   },
   deleteText: {
-    color: 'purple',
-    backgroundColor: 'whitesmoke',
-    fontSize: 22,
+    color: 'white',
+    backgroundColor: 'purple',
+    fontSize: 20,
     margin: 20,
     padding: 10,
-    borderWidth: 2,
     borderRadius: 10,
   },
-  container: {
+  capitalize: {
+    textTransform: 'capitalize',
+  },
+  safeArea: {
     flex: 1,
     backgroundColor: 'white',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding: 20,
-    borderWidth: 1,
+    paddingBottom: 20,
+    borderWidth: 3,
+    borderRadius: 5,
   },
   streakView: {
     flexDirection: 'row',

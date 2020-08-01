@@ -1,17 +1,31 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-// eslint-disable-next-line prettier/prettier
-const TaskBox = ({ taskName, description, color, goal }) => {
+const TaskBox = ({ task }) => {
   const boxColor = {
-    backgroundColor: color,
+    backgroundColor: task.color,
+  };
+  console.log(task)
+  // console.log(taskName, description, color, type, hours, minutes, goal);
+
+  const displayGoal = () => {
+    if (task.type === 'time') {
+      return (
+      <Text style={styles.goalText}> {task.hours} h {task.minutes} mins </Text>
+      )
+    } else if (task.type === 'count') {
+      return (
+        <Text style={styles.goalText}> {task.goal} </Text>
+      );
+    }
   };
 
   return (
     <View style={[styles.box, boxColor]}>
-      <Text style={styles.taskNameText}> {taskName} </Text>
-      <Text style={styles.goalText}> Daily goal: {goal} </Text>
-      <Text style={styles.descriptionText}> Why: {description} </Text>
+      <Text style={styles.taskNameText}> {task.taskName} </Text>
+      <Text style={styles.goalText}> Daily goal: {displayGoal()} </Text>
+      <Text style={styles.descriptionText}> Why: {task.description} </Text>
     </View>
   );
 };

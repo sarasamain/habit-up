@@ -11,7 +11,8 @@ const TodayTasks = ({ navigation, route }) => {
 
   const refreshTasks = async () => {
     const allTasks = await ApiClient.getAllTasks();
-    setTasks(allTasks);
+    console.log("all tasks ", allTasks)
+    setTasks([...allTasks]);
   };
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const TodayTasks = ({ navigation, route }) => {
               task: item,
             });
           }}>
-            <TaskBox task={item} />
+            <TaskBox task={item} needsRefreshCallback={refreshTasks}/>
           </TouchableOpacity>
         )}
         ListEmptyComponent={<Text>Add a New Task to get started!</Text>}

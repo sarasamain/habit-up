@@ -1,13 +1,15 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import TaskCheckButtom from './TaskCheckButton';
+import ApiClient from '../ApiClient';
 
-const TaskBox = ({ task }) => {
+const TaskBox = ({ task, needsRefreshCallback }) => {
+  const id = task.taskId;
+  const { status } = task;
   const boxColor = {
     backgroundColor: task.color,
   };
-  console.log(task)
-  // console.log(taskName, description, color, type, hours, minutes, goal);
 
   const displayGoal = () => {
     if (task.type === 'time') {
@@ -21,11 +23,22 @@ const TaskBox = ({ task }) => {
     }
   };
 
+  const toggleTaskDone = async (e, id, status) => {
+    status = status === 'false' ? 'true' : 'false';
+    e.stopPropagation();
+    await ApiClient.updateTaskStatus(id, status);
+    needsRefreshCallback();
+  };
+
+
   return (
     <View style={[styles.box, boxColor]}>
       <Text style={styles.taskNameText}> {task.taskName} </Text>
       <Text style={styles.goalText}> Daily goal: {displayGoal()} </Text>
       <Text style={styles.descriptionText}> Why: {task.description} </Text>
+      <TouchableOpacity onPress={(e) => toggleTaskDone(e , id, status)}>
+        <TaskCheckButtom task={task}/>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -35,6 +48,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
+
   goalText: {
     color: 'grey',
     fontWeight: 'bold',

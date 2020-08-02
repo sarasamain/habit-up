@@ -77,7 +77,7 @@ const NewTaskForm = ({ navigation, route }) => {
         hours: taskHours,
         minutes: taskMinutes,
         creationDate: Date.now(),
-        done: false,
+        status: 'false',
         currentStreak: 0,
         maxStreak: 0,
         history: [],

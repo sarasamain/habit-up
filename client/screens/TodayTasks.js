@@ -11,7 +11,6 @@ const TodayTasks = ({ navigation, route }) => {
 
   const refreshTasks = async () => {
     const allTasks = await ApiClient.getAllTasks();
-    console.log("all tasks ", allTasks)
     setTasks([...allTasks]);
   };
 

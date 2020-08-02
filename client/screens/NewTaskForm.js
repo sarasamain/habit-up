@@ -112,11 +112,11 @@ const NewTaskForm = ({ navigation, route }) => {
         <Picker
           style={styles.picker}
           selectedValue={taskColor}
-          onValueChange={itemValue => 
+          onValueChange={itemValue =>
             setTaskColor(itemValue)
           }>
             {taskColors.map(color => (
-              <Picker.Item style={styles.pickerItem} label={color.displayName} value={color.colorCode} />
+              <Picker.Item style={styles.pickerItem} key={color.colorCode} label={color.displayName} value={color.colorCode} />
               ))}
         </Picker>
         <View >

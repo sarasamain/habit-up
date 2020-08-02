@@ -29,7 +29,7 @@ const tasks = [
     maxStreak: 4, 
     type: 'count', 
     goal: 10, 
-    status: 'true',
+    status: 'false',
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'true'},
@@ -74,7 +74,7 @@ const tasks = [
     type: 'time', 
     goal: 0, hours: '2', 
     minutes: '30', 
-    status: 'true',
+    status: 'false',
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'true'},

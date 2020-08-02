@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import TaskCheckButtom from './TaskCheckButton';
+import TaskCounter from './TaskCounter';
 import ApiClient from '../ApiClient';
 
 const TaskBox = ({ task, needsRefreshCallback }) => {
@@ -14,11 +15,11 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   const displayGoal = () => {
     if (task.type === 'time') {
       return (
-      <Text style={styles.goalText}> {task.hours} h {task.minutes} mins </Text>
-      )
+        <Text style={styles.goalText}> Goal: {task.hours} h {task.minutes} mins </Text>
+      );
     } else if (task.type === 'count') {
       return (
-        <Text style={styles.goalText}> {task.goal} </Text>
+        <Text style={styles.goalText}> Goal: {task.goal} </Text>
       );
     }
   };
@@ -34,10 +35,11 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   return (
     <View style={[styles.box, boxColor]}>
       <Text style={styles.taskNameText}> {task.taskName} </Text>
-      <Text style={styles.goalText}> Daily goal: {displayGoal()} </Text>
+      <Text> {displayGoal()} </Text>
       <Text style={styles.descriptionText}> Why: {task.description} </Text>
-      <TouchableOpacity onPress={(e) => toggleTaskDone(e , id, status)}>
-        <TaskCheckButtom task={task}/>
+      <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} />
+      <TouchableOpacity onPress={(e) => toggleTaskDone(e, id, status)}>
+        <TaskCheckButtom task={task} />
       </TouchableOpacity>
     </View>
   );

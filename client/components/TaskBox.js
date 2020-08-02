@@ -19,7 +19,10 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
       );
     } else if (task.type === 'count') {
       return (
-        <Text style={styles.goalText}> Goal: {task.goal} </Text>
+        <>
+          <Text style={styles.goalText}> Goal: {task.goal} </Text>
+          <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} />
+        </>
       );
     }
   };
@@ -35,9 +38,9 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   return (
     <View style={[styles.box, boxColor]}>
       <Text style={styles.taskNameText}> {task.taskName} </Text>
-      <Text> {displayGoal()} </Text>
-      <Text style={styles.descriptionText}> Why: {task.description} </Text>
-      <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} />
+      {displayGoal()}
+      {/* <Text style={styles.descriptionText}> Why: {task.description} </Text> */}
+      {/* <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} /> */}
       <TouchableOpacity onPress={(e) => toggleTaskDone(e, id, status)}>
         <TaskCheckButtom task={task} />
       </TouchableOpacity>

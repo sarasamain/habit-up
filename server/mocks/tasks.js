@@ -1,3 +1,5 @@
+const creationTimestamp= 1596442541541 - 9*86400000;
+
 const tasks = [
   { taskId:'task001', 
     taskName: 'Water plants ', 
@@ -8,6 +10,7 @@ const tasks = [
     type: 'check', 
     goal: 1, 
     status: 'false',
+    creationDate: creationTimestamp,
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'true'},
@@ -18,6 +21,7 @@ const tasks = [
       { date: '31/07/2020', status: 'true'},
       { date: '01/08/2020', status: 'true'},
       { date: '02/08/2020', status: 'true'},
+      { date: '03/08/2020', status: 'false'},
     ]
   },
   { 
@@ -30,6 +34,7 @@ const tasks = [
     type: 'count', 
     goal: 10, 
     status: 'false',
+    creationDate: creationTimestamp,
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'true'},
@@ -40,6 +45,8 @@ const tasks = [
       { date: '31/07/2020', status: 'true'},
       { date: '01/08/2020', status: 'true'},
       { date: '02/08/2020', status: 'true'},
+      { date: '03/08/2020', status: 'false'},
+
     ],
   },
   { 
@@ -52,6 +59,7 @@ const tasks = [
     type: 'count', 
     goal: 5, 
     status: 'false',
+    creationDate: creationTimestamp,
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'false'},
@@ -62,6 +70,7 @@ const tasks = [
       { date: '31/07/2020', status: 'true'},
       { date: '01/08/2020', status: 'true'},
       { date: '02/08/2020', status: 'true'},
+      { date: '03/08/2020', status: 'false'},
     ]
   },
   { 
@@ -75,6 +84,7 @@ const tasks = [
     goal: 0, hours: '2', 
     minutes: '30', 
     status: 'false',
+    creationDate: creationTimestamp,
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'true'},
@@ -85,6 +95,7 @@ const tasks = [
       { date: '31/07/2020', status: 'true'},
       { date: '01/08/2020', status: 'false'},
       { date: '02/08/2020', status: 'true'},
+      { date: '03/08/2020', status: 'false'},
     ]
   },
   { 
@@ -99,6 +110,7 @@ const tasks = [
     hours: '1', 
     minutes: '15', 
     status: 'false',
+    creationDate: creationTimestamp,
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'true'},
@@ -109,6 +121,7 @@ const tasks = [
       { date: '31/07/2020', status: 'true'},
       { date: '01/08/2020', status: 'true'},
       { date: '02/08/2020', status: 'true'},
+      { date: '03/08/2020', status: 'false'},
     ]
   },
   { 
@@ -123,6 +136,7 @@ const tasks = [
     hours: '0',
     minutes: '30',
     status: 'false',
+    creationDate: creationTimestamp,
     history: [
       { date: '25/07/2020', status: 'true'},
       { date: '26/07/2020', status: 'true'},
@@ -133,6 +147,7 @@ const tasks = [
       { date: '31/07/2020', status: 'true'},
       { date: '01/08/2020', status: 'true'},
       { date: '02/08/2020', status: 'true'},
+      { date: '03/08/2020', status: 'false'},
     ]
   },
 ];

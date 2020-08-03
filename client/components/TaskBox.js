@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import TaskCheckButtom from './TaskCheckButton';
 import TaskCounter from './TaskCounter';
+import StopWatch from './StopWatch';
 import ApiClient from '../ApiClient';
 
 const TaskBox = ({ task, needsRefreshCallback }) => {
@@ -15,14 +16,17 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   const displayGoal = () => {
     if (task.type === 'time') {
       return (
-        <Text style={styles.goalText}> Goal: {task.hours} h {task.minutes} mins </Text>
+        <View>
+          <Text style={styles.goalText}> Goal: {task.hours} h {task.minutes} mins </Text>
+          <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone}/>
+        </View>
       );
     } else if (task.type === 'count') {
       return (
-        <>
+        <View>
           <Text style={styles.goalText}> Goal: {task.goal} </Text>
           <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} />
-        </>
+        </View>
       );
     }
   };

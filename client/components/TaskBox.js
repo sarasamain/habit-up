@@ -18,7 +18,7 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
       return (
         <View>
           <Text style={styles.goalText}> Goal: {task.hours} h {task.minutes} mins </Text>
-          <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone}/>
+          {/* <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone}/> */}
         </View>
       );
     } else if (task.type === 'count') {

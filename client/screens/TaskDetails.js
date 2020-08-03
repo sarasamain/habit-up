@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, Alert } from 'react-native';
 import ApiClient from '../ApiClient';
+import TaskCalendar from '../components/TaskCalendar';
 
 const TaskDetails = ({ navigation, route }) => {
   const { task } = route.params;
@@ -48,12 +49,22 @@ const TaskDetails = ({ navigation, route }) => {
       });
   };
 
+  const handleEditTask = (id) => {
+    const needsRefresh = true;
+
+    // ApiClient.deleteTask(id)
+    //   .then(() => {
+    //     navigation.navigate('Edit Form', { needsRefresh });
+    //   });
+  };
+
   return (
     <SafeAreaView style={[styles.safeArea, {borderColor: task.color}]}>
-      <View>
-        <View style={[styles.boxTitle]}>
+      <View style={[styles.boxTitle]}>
           <Text style={[styles.nameText, taskColorBackground]}> {task.taskName}: </Text>
         </View>
+      <ScrollView style={styles.scrollView}>
+      <View>
         <Text style={styles.titleText}>Your Why: </Text>
         <Text style={styles.dataText}>{task.description}</Text>
         <Text style={styles.titleText}>Creation Date: </Text>
@@ -62,21 +73,31 @@ const TaskDetails = ({ navigation, route }) => {
         <Text style={[styles.dataText, styles.capitalize]}>{task.type}</Text>
         <Text style={styles.titleText}>Your Daily Goal: </Text>
         <Text style={styles.dataText}>{task.goal}</Text>
+        <Text style={[styles.sectionText, taskColorBackground]}>Streaks</Text>
         <View style={styles.streakView}>
           <View>
-            <Text style={styles.titleText}>Current Streak: </Text>
+            <Text style={[styles.titleText, {marginRight: 50}]}>Current: </Text>
             <Text style={[styles.dataText]}>{task.currentStreak}</Text>
           </View>
           <View>
-            <Text style={styles.titleText}>Maximum Streak: </Text>
+            <Text style={styles.titleText}>Maximum: </Text>
             <Text style={[styles.dataText]}>{task.maxStreak}</Text>
           </View>
         </View>
       </View>
-      <Text
-        style={styles.deleteText}
-        onPress={() => confirmDelete(id)}
-      > Delete </Text>
+      <Text style={[styles.sectionText, taskColorBackground]}>Calendar: </Text>
+      <TaskCalendar task={task} />
+      <View style={styles.actions}>
+        <Text
+          style={styles.deleteText}
+          onPress={() => confirmDelete(id)}
+        > Delete </Text>
+        <Text
+          style={styles.deleteText}
+          onPress={() => handleEditTask(id)}
+        > Edit </Text>
+      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -86,22 +107,32 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    marginLeft: 20,
+    paddingLeft: 20,
+    paddingVertical: 10,
   },
   boxTitle: {
     justifyContent: 'center',
+    alignSelf: 'stretch',
   },
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    marginLeft: 20,
+    paddingLeft: 20,
   },
   dataText: {
     fontSize: 18,
     color: 'grey',
     marginBottom: 20,
-    marginLeft: 20,
+    paddingLeft: 20,
+  },
+  sectionText: {
+    fontSize: 21,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    paddingLeft: 20,
+    paddingVertical: 5,
+    alignSelf: 'stretch',
   },
   deleteText: {
     color: 'white',
@@ -116,12 +147,18 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+    alignSelf: 'stretch',
     backgroundColor: 'white',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     paddingBottom: 20,
-    borderWidth: 3,
-    borderRadius: 5,
+    borderWidth: 10,
+    borderRadius: 20,
+  },
+  scrollView: {
+    flex: 2,
+    alignSelf: 'stretch',
+    paddingHorizontal: 10,
   },
   streakView: {
     flexDirection: 'row',
@@ -134,6 +171,10 @@ const styles = StyleSheet.create({
     borderColor: 'lavender',
     borderRadius: 50,
   },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  }
 });
 
 export default TaskDetails;

@@ -7,9 +7,6 @@ import StopWatch from './StopWatch';
 import ApiClient from '../ApiClient';
 
 const TaskBox = ({ task, needsRefreshCallback }) => {
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 600);
-
   const id = task.taskId;
   const { status } = task;
   const boxColor = {
@@ -21,7 +18,7 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
       return (
         <View>
           <Text style={styles.goalText}> Goal: {task.hours} h {task.minutes} mins </Text>
-          <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone} expiryTimestamp={time} />
+          <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone}/>
         </View>
       );
     } else if (task.type === 'count') {

@@ -6,6 +6,8 @@ import moment from 'moment';
 // eslint-disable-next-line prettier/prettier
 const TaskCalendar = ({ task }) => {
 
+  const taskHistoryRender = task.history;
+
   const handleArrowDirection = (direction) => {
     if (direction === 'right') {
       return <Text> Next </Text>;
@@ -63,17 +65,7 @@ const TaskCalendar = ({ task }) => {
         disableAllTouchEventsForDisabledDays={true}
         /** Replace default month and year title with custom one. the function receive a date as parameter. */
         renderHeader={(date) => showMonthName(date)}
-        markedDates={{
-          '2020-07-25': {selected: true, selectedColor: 'limegreen'},
-          '2020-07-26': {selected: true, selectedColor: 'limegreen'},
-          '2020-07-27': {selected: true, selectedColor: 'limegreen'},
-          '2020-07-28': {selected: true, selectedColor: 'limegreen'},
-          '2020-07-29': {selected: true, selectedColor: 'limegreen'},
-          '2020-08-01': {selected: true, selectedColor: 'limegreen'},
-          '2020-08-02': {selected: true, selectedColor: 'limegreen'},
-          // '2020-07-29': {selected: true, selectedColor: 'tomato'},
-          // '2020-07-27': {selected: true, selectedColor: 'tomato'},
-        }}
+        markedDates={taskHistoryRender}
       />
     </View>
   );
@@ -86,3 +78,17 @@ const styles = StyleSheet.create({
 });
 
 export default TaskCalendar;
+
+// {{
+//   '2020-07-25': {selected: true, selectedColor: 'limegreen'},
+//   '2020-07-26': {selected: true, selectedColor: 'limegreen'},
+//   '2020-07-27': {selected: true, selectedColor: 'limegreen'},
+//   '2020-07-28': {selected: true, selectedColor: 'limegreen'},
+//   '2020-07-29': {selected: true, selectedColor: 'limegreen'},
+//   '2020-07-30': {selected: false, selectedColor: 'limegreen'},
+//   '2020-07-31': {selected: false, selectedColor: 'limegreen'},
+//   '2020-08-01': {selected: true, selectedColor: 'limegreen'},
+//   '2020-08-02': {selected: true, selectedColor: 'limegreen'},
+//   // '2020-07-29': {selected: true, selectedColor: 'tomato'},
+//   // '2020-07-27': {selected: true, selectedColor: 'tomato'},
+// }}

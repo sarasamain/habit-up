@@ -1,10 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { useTimer } from 'react-timer-hook';
+import { useTimer, useStopwatch } from 'react-timer-hook';
 
 const StopWatch = ({ task, toggleTaskDoneCallback, expiryTimestamp }) => {
 
-  const {
+//   const [isStart, setIsStart] = useState(false);
+//   const [remainingHours, setRemainingHours] = useState(parseInt(task.hours));
+//   const [remainingMinutes, setRemainingMinutes] = useState(parseInt(task.minutes));
+//   const [remainingSeconds, setRemainingSeconds] = useState(0);
+
+//   const time = new Date();
+//   time.setSeconds(time.getSeconds() + remainingHours * 3600 + remainingMinutes * 60 + 1);
+//   expiryTimestamp = time;
+
+//   let {
+//     seconds,
+//     minutes,
+//     hours,
+//     isRunning,
+//     days,
+//     start,
+//     pause,
+//     resume,
+//     restart,
+//   } = useTimer({ expiryTimestamp, onExpire: () => {
+//       Alert.alert('You just finished the task!');
+//       console.warn('onExpire called');
+//       //send info to parent to set task as done
+//     }
+//   });
+
+//   const handleStart = () => {
+//     setIsStart(!isStart);
+//     resume();
+//   };
+
+//   useEffect(pause, [pause]);
+  
+//   return (
+//     <View style={styles.box}>
+//       <View style={styles.timerBox}>
+//         <Text> {hours} : {minutes} : {seconds} </Text>
+//         <Text style={styles.isRunning}>{isRunning ? 'Running' : 'Stopped'}</Text>
+//       </View>
+//       <View style={styles.timerBox}>
+//         {/* <Text style={styles.button} onPress={() => handleStart()}>Start</Text> */}
+//         <Text style={styles.button} onPress={resume}>Start</Text>
+//         <Text style={styles.button} onPress={pause}>Pause</Text>
+//         {/* <Text style={styles.button} onPress={resume}>Resume</Text> */}
+//         {/* <Text style={styles.button} onPress={() => {
+//           const time = new Date();
+//           time.setSeconds(time.getSeconds() + 300);
+//             restart(time);
+//           }}
+//         > Restart</Text> */}
+//       </View>
+//     </View>
+//   );
+// };
+  
+  
+    const {
     seconds,
     minutes,
     hours,
@@ -12,44 +68,51 @@ const StopWatch = ({ task, toggleTaskDoneCallback, expiryTimestamp }) => {
     isRunning,
     start,
     pause,
-    resume,
-    restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+    reset,
+  } = useStopwatch({ autoStart: false });
  
   return (
-    <View>
-      <Text>Timer:</Text>
-      <Text>{days} : {hours} : {minutes} : {seconds} </Text>
-      <Text>{isRunning ? 'Running' : 'Stopped'}</Text>
-      <Text style={styles.button} onPress={start}>Start</Text>
-      <Text style={styles.button} onPress={pause}>Pause</Text>
-      <Text style={styles.button} onPress={resume}>Resume</Text>
-      <Text style={styles.button} onPress={() => {
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + 300);
-          restart(time);
-        }}
-      > Restart</Text>
+    <View style={styles.box}>
+      <View style={styles.timerBox}>
+        <Text> {hours} : {minutes} : {seconds} </Text>
+        <Text style={styles.isRunning}>{isRunning ? 'Running' : 'Stopped'}</Text>
+      </View>
+      <View style={styles.timerBox}>
+        <Text style={styles.button} onPress={start}>Start</Text>
+        <Text style={styles.button} onPress={pause}>Pause</Text>
+        <Text style={styles.button} onPress={reset}>Reset</Text>
+
+      </View>
     </View>
-    // <div style={{textAlign: 'center'}}>
-    //   <h1>react-timer-hook </h1>
-    //   <p>Timer Demo</p>
-    //   <div style={{fontSize: '100px'}}>
-    //     <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
-    //   </div>
-    //   <p>{isRunning ? 'Running' : 'Not running'}</p>
-    //   <button onClick={start}>Start</button>
-    //   <button onClick={pause}>Pause</button>
-    //   <button onClick={resume}>Resume</button>
-    //   <button onClick={() => {
-    //     // Restarts to 5 minutes timer
-    //     const time = new Date();
-    //     time.setSeconds(time.getSeconds() + 300);
-    //     restart(time)
-    //   }}>Restart</button>
-    // </div>
   );
 };
+
+const styles = StyleSheet.create({
+  timerBox: {
+    flexDirection: 'row',
+    backgroundColor: 'whitesmoke',
+    borderRadius: 10,
+    padding: 5,
+    margin: 3,
+    alignItems: 'center',
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: 'purple',
+    borderRadius: 5,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    marginHorizontal: 5,
+  },
+  text: {
+    fontSize: 18,
+  },
+  isRunning: {
+    marginLeft: 10,
+  }
+});
+
+export default StopWatch;
 
 // const StopWatch = ({ task, toggleTaskDoneCallback }) => {
 //   const id = task.taskId;
@@ -114,27 +177,3 @@ const StopWatch = ({ task, toggleTaskDoneCallback, expiryTimestamp }) => {
 //     </View>
 //  );
 // };
-
-const styles = StyleSheet.create({
-  box: {
-    flexDirection: 'row',
-    backgroundColor: 'whitesmoke',
-    borderRadius: 10,
-    padding: 5,
-    margin: 3,
-    alignItems: 'center',
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: 'purple',
-    borderRadius: 5,
-    paddingVertical: 3,
-    paddingHorizontal: 5,
-    marginHorizontal: 5,
-  },
-  text: {
-    fontSize: 18,
-  },
-});
-
-export default StopWatch;

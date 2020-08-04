@@ -38,10 +38,10 @@ const TaskDetails = ({ navigation, route }) => {
     );
   };
 
-  const handleDeleteTask = (id) => {
+  const handleDeleteTask = (idToDelete) => {
     const needsRefresh = true;
 
-    ApiClient.deleteTask(id)
+    ApiClient.deleteTask(idToDelete)
       .then(() => {
         navigation.navigate('TodayTasks', { needsRefresh });
       });

@@ -12,7 +12,7 @@ const colors = {
 
 '#1A535C'
 
-const tasks = [
+let tasks = [
   { taskId:'task001', 
     taskName: 'Water plants ', 
     description: 'Cause otherwise they die', 

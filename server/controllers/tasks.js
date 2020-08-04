@@ -1,4 +1,4 @@
-const tasks = require('../mocks/tasks');
+let tasks = require('../mocks/tasks');
 
 const getTasks = (req, res) => {
   try {

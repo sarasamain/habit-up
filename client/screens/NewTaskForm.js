@@ -5,10 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import ApiClient from '../ApiClient';
 
 const taskColors = [
-  {colorCode: 'lavender', displayName: 'Lavender'},
+  {colorCode: '#f9c74f', displayName: 'Yellow'},
+  {colorCode: '#90be6d', displayName: 'Green'},
   {colorCode: 'pink', displayName: 'Pink'},
-  {colorCode: 'lightblue', displayName: 'Light Blue'},
-  {colorCode: 'beige', displayName: 'Beige'},
+  {colorCode: '#4ECDC4', displayName: 'Light Blue'},
+  {colorCode: '#FF6B6B', displayName: 'Light Red'},
 ];
 
 const NewTaskForm = ({ navigation, route }) => {
@@ -64,8 +65,10 @@ const NewTaskForm = ({ navigation, route }) => {
     const needsRefresh = true;
     const randomId = uuidv4();
 
-    if (!taskName || !taskDescription ) {
-      Alert.alert('All inputs must be filled');
+    if (!taskName || !taskDescription) {
+      Alert.alert('All text inputs must be filled');
+    } if (parseInt(taskHours) < 0 || parseInt(taskMinutes) < 0 || parseInt(taskGoal) < 0) {
+      Alert.alert('Please enter valid numbers');
     } else {
       const newTask = {
         taskId: randomId,
@@ -91,7 +94,7 @@ const NewTaskForm = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView>
+      <ScrollView styles={styles.scrollView}>
         <Text style={styles.text}>Task Name</Text>
         <TextInput
           style={styles.input}
@@ -110,7 +113,7 @@ const NewTaskForm = ({ navigation, route }) => {
         />
         <Text style={styles.text}>Color</Text>
         <Picker
-          style={styles.picker}
+          style={[styles.picker, {backgroundColor: taskColor}]}
           selectedValue={taskColor}
           onValueChange={itemValue =>
             setTaskColor(itemValue)
@@ -124,7 +127,7 @@ const NewTaskForm = ({ navigation, route }) => {
         </View>
         <TouchableOpacity onPress={handleSubmit}>
           <View style={styles.actionBox}>
-            <Image source={require('../assets/addwhite.png')} style={styles.imageButton} />
+            {/* <Image source={require('../assets/addwhite.png')} style={styles.imageButton} /> */}
             <Text style={styles.add}> Add Task </Text>
           </View>
         </TouchableOpacity>
@@ -138,8 +141,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'ivory',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'stretch',
     padding: 30,
+  },
+  scrollView: {
+    flex: 1,
+    alignSelf: 'stretch',
   },
   text: {
     fontSize: 18,
@@ -161,16 +168,17 @@ const styles = StyleSheet.create({
   },
   picker: {
     marginBottom: 20,
+    borderColor: 'slategrey',
+    borderRadius: 5,
   },
   pickerItem: {
     backgroundColor: 'lavender',
-    borderWidth: 1, 
-    borderColor: 'slategrey',
   },
   timeInput: {
     flexDirection: 'column',
   },
   actionBox: {
+    alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#1A535C',

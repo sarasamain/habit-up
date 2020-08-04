@@ -80,7 +80,7 @@ const NewTaskForm = ({ navigation, route }) => {
         status: 'false',
         currentStreak: 0,
         maxStreak: 0,
-        history: [],
+        history: {},
       };
       ApiClient.postTask(newTask)
         .then(() => {

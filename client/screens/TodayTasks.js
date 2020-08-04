@@ -27,7 +27,7 @@ const TodayTasks = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <FlatList
-        // numColumns={2}
+        numColumns={2}
         style={styles.container}
         data={tasks}
         keyExtractor={(item) => item.taskId}
@@ -40,7 +40,7 @@ const TodayTasks = ({ navigation, route }) => {
             <TaskBox task={item} needsRefreshCallback={refreshTasks}/>
           </TouchableOpacity>
         )}
-        ListEmptyComponent={<Text>Add a New Task to get started!</Text>}
+        ListEmptyComponent={<Text style={styles.emptyList}>Add a New Task to get started!</Text>}
       />
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => {
@@ -54,17 +54,22 @@ const TodayTasks = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  welcomeText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
+  // welcomeText: {
+  //   fontSize: 22,
+  //   fontWeight: 'bold',
+  //   marginBottom: 20,
+  // },
   safeArea: {
     paddingBottom: 80,
   },
+  emptyList: {
+    
+  },
   footer: {
+    flex: 1,
     position: 'absolute',
     bottom: 0,
+    justifyContent: 'flex-end',
     backgroundColor: 'whitesmoke',
     paddingHorizontal: 10,
     borderRadius: 20,

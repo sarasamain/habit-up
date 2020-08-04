@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'whitesmoke',
     borderRadius: 10,
     padding: 3,
+    alignSelf: 'center',
   },
 });
 

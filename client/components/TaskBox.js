@@ -12,19 +12,23 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   const boxColor = {
     backgroundColor: task.color,
   };
+  const boxColorBorder = {
+    borderColor: task.color,
+    borderWidth: 3,
+  };
 
   const displayGoal = () => {
     if (task.type === 'time') {
       return (
         <View>
-          <Text style={styles.goalText}> Goal: {task.hours} h {task.minutes} mins </Text>
+          <Text style={styles.goalText}> <Text style={{ fontWeight: 'bold' }}>Goal:</Text> {task.hours} h {task.minutes} mins </Text>
           <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone}/>
         </View>
       );
     } else if (task.type === 'count') {
       return (
         <View>
-          <Text style={styles.goalText}> Goal: {task.goal} </Text>
+          <Text style={styles.goalText}> <Text style={{ fontWeight: 'bold' }}>Goal:</Text> {task.goal} </Text>
           <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} />
         </View>
       );
@@ -40,11 +44,14 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
 
 
   return (
-    <View style={[styles.box, boxColor]}>
-      <Text style={styles.taskNameText}> {task.taskName} </Text>
+    <View style={[styles.box, boxColorBorder]}>
+      <View style={[styles.task, boxColor]}>
+        <Text style={styles.taskNameText}> {task.taskName} </Text>
+      </View>
+      <View style={styles.descriptionBox}>
+        <Text style={styles.descriptionText}> <Text style={{ fontWeight: 'bold' }}>Why: </Text> {task.description} </Text>
+      </View>
       {displayGoal()}
-      {/* <Text style={styles.descriptionText}> Why: {task.description} </Text> */}
-      {/* <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} /> */}
       <TouchableOpacity onPress={(e) => toggleTaskDone(e, id, status)}>
         <TaskCheckButtom task={task} />
       </TouchableOpacity>
@@ -57,23 +64,33 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
-
+  task: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
   goalText: {
     color: 'grey',
-    fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 16,
+    alignSelf: 'center',
   },
   descriptionText: {
     color: 'grey',
-    fontSize: 10,
+    fontSize: 12,
+    alignSelf: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  descriptionBox: {
+    paddingHorizontal: 10,
+    paddingVertical: 3,
   },
   box: {
-    padding: 10,
     borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 10,
-    marginHorizontal: 30,
+    justifyContent: 'space-between',
+    margin: 10,
+    paddingBottom: 10,
+    width: 180,
+    height: 180,
   },
 });
 

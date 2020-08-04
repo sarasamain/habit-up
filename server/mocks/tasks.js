@@ -16,7 +16,7 @@ let tasks = [
   { taskId:'task001', 
     taskName: 'Water plants ', 
     description: 'Cause otherwise they die', 
-    color: colors.green, 
+    color: 'pink', 
     currentStreak: 3, 
     maxStreak: 4, 
     type: 'check', 

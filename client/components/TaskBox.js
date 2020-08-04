@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import TaskCheckButtom from './TaskCheckButton';
@@ -21,14 +20,21 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
     if (task.type === 'time') {
       return (
         <View>
-          <Text style={styles.goalText}> <Text style={{ fontWeight: 'bold' }}>Goal:</Text> {task.hours} h {task.minutes} mins </Text>
-          <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone}/>
+          <Text style={styles.goalText}>
+            {' '}
+            <Text style={{ fontWeight: 'bold' }}>Goal:</Text> {task.hours} h{' '}
+            {task.minutes} mins{' '}
+          </Text>
+          <StopWatch task={task} toggleTaskDoneCallback={toggleTaskDone} />
         </View>
       );
     } else if (task.type === 'count') {
       return (
         <View>
-          <Text style={styles.goalText}> <Text style={{ fontWeight: 'bold' }}>Goal:</Text> {task.goal} </Text>
+          <Text style={styles.goalText}>
+            {' '}
+            <Text style={{ fontWeight: 'bold' }}>Goal:</Text> {task.goal}{' '}
+          </Text>
           <TaskCounter task={task} toggleTaskDoneCallback={toggleTaskDone} />
         </View>
       );
@@ -36,24 +42,25 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   };
 
   const toggleTaskDone = async (e, id, status) => {
-    console.warn('task status being toggled');
     status = status === 'false' ? 'true' : 'false';
     e.stopPropagation();
     await ApiClient.updateTaskStatus(id, status);
     needsRefreshCallback();
   };
 
-
   return (
     <View style={[styles.box, boxColorBorder]}>
       <View style={[styles.taskTitle, boxColor]}>
         <Text style={styles.taskNameText}> {task.taskName} </Text>
         <TouchableOpacity onPress={(e) => toggleTaskDone(e, id, status)}>
-        <TaskCheckButtom task={task} />
-      </TouchableOpacity>
+          <TaskCheckButtom task={task} />
+        </TouchableOpacity>
       </View>
       <View style={styles.descriptionBox}>
-        <Text style={styles.descriptionText}> <Text style={{ fontWeight: 'bold' }}>Why: </Text> {task.description} </Text>
+        <Text style={styles.descriptionText}>
+          {' '}
+          <Text style={{ fontWeight: 'bold' }}>Why: </Text> {task.description}{' '}
+        </Text>
       </View>
       {displayGoal()}
     </View>

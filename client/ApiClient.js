@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const BASE_URL = 'http://192.168.8.104:3003';
 
 const ApiClient = {
@@ -33,7 +32,7 @@ const ApiClient = {
     return fetchData(`/tasks/${taskId}?isComplete=${status}`, {
       method: 'PUT',
       headers: {
-        "Content-Type":"application/json"
+        'Content-Type': 'application/json',
       },
     });
   },
@@ -41,12 +40,8 @@ const ApiClient = {
 
 const fetchData = (path, options) => {
   return fetch(BASE_URL + path, options)
-    .then(res => res.json())
-    // .then(res => {
-    //   console.log('Response is', res);
-    //   return res.status < 400 ? res : Promise.reject(res);
-    // })
-    .catch(error => {
+    .then((res) => res.json())
+    .catch((error) => {
       console.log('fetch error', error);
     });
 };

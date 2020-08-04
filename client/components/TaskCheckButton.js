@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
@@ -8,18 +7,22 @@ const TaskCheckButton = ({ task }) => {
   const handleCheck = () => {
     if (status === 'false') {
       return (
-        <Image source={require('../assets/untick.png')} style={styles.imageButton} />
-      )
+        <Image
+          source={require('../assets/untick.png')}
+          style={styles.imageButton}
+        />
+      );
     } else if (status === 'true') {
       return (
-        <Image source={require('../assets/tick.png')} style={styles.imageButton} />
-      )
+        <Image
+          source={require('../assets/tick.png')}
+          style={styles.imageButton}
+        />
+      );
     }
   };
 
-  return (
-    handleCheck()
-  );
+  return handleCheck();
 };
 
 const styles = StyleSheet.create({

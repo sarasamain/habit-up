@@ -1,7 +1,13 @@
-/* eslint-disable prettier/prettier */
-
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Image, Text, View, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import TaskBox from '../components/TaskBox';
 import ApiClient from '../ApiClient';
 
@@ -26,33 +32,53 @@ const TodayTasks = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.quoteBox}>
+        <Text style={styles.quoteText}>
+          “The secret of getting ahead is getting started.”
+        </Text>
+        <Text style={styles.quoteText}> – Mark Twain </Text>
+      </View>
       <FlatList
         numColumns={2}
         style={styles.container}
         data={tasks}
         keyExtractor={(item) => item.taskId}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => {
-            navigation.navigate('TaskDetails', {
-              task: item,
-            });
-          }}>
-            <TaskBox task={item} needsRefreshCallback={refreshTasks}/>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('TaskDetails', {
+                task: item,
+              });
+            }}
+          >
+            <TaskBox task={item} needsRefreshCallback={refreshTasks} />
           </TouchableOpacity>
         )}
         ListEmptyComponent={
           <View>
-            <Text style={styles.emptyList}>Add a New Task to get started with Habitator, the best habit tracker out there ! </Text>
-          </View>}
+            <Text style={styles.emptyList}>
+              Add a New Task to get started with Habitator, the best habit
+              tracker out there !{' '}
+            </Text>
+          </View>
+        }
       />
       <View style={styles.footer}>
-        <View style={{flexDirection: 'row'}}>
-          <Image source={require('../assets/settingsgear.png')} style={styles.imageButton} />
-          <Image source={require('../assets/graphpresentation.png')} style={styles.imageButton} />
+        <View style={{ flexDirection: 'row' }}>
+          <Image
+            source={require('../assets/settingsgear.png')}
+            style={styles.imageButton}
+          />
+          <Image
+            source={require('../assets/graphpresentation.png')}
+            style={styles.imageButton}
+          />
         </View>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate('TaskTypes');
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('TaskTypes');
+          }}
+        >
           <Text style={styles.newTaskText}>+ Add Task </Text>
         </TouchableOpacity>
       </View>
@@ -96,6 +122,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     justifyContent: 'center',
+  },
+  quoteText: {
+    fontStyle: 'italic',
+    color: 'grey',
+    alignSelf: 'flex-end',
+  },
+  quoteBox: {
+    padding: 20,
+    marginBottom: 10,
   },
   imageButton: {
     width: 50,

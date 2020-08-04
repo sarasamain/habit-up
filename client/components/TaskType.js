@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-// eslint-disable-next-line prettier/prettier
-
 const TaskType = ({ description, type }) => {
   const handleIcon = () => {
     if (type === 'time') {

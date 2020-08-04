@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
-// eslint-disable-next-line prettier/prettier
 const TaskCounter = ({ task, toggleTaskDoneCallback }) => {
   const id = task.taskId;
   let status = task.status;
@@ -58,17 +57,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   button: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: 'slategrey',
-    borderRadius: 5,
-    paddingVertical: 3,
-    paddingHorizontal: 5,
+    borderRadius: 30,
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
     marginHorizontal: 5,
   },
   text: {
-    fontSize: 18,
+    alignSelf: 'center',
+    fontSize: 26,
     fontWeight: 'bold',
-  }
+  },
 });
 
 export default TaskCounter;

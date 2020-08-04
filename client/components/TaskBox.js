@@ -36,6 +36,7 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   };
 
   const toggleTaskDone = async (e, id, status) => {
+    console.warn('task status being toggled');
     status = status === 'false' ? 'true' : 'false';
     e.stopPropagation();
     await ApiClient.updateTaskStatus(id, status);
@@ -45,16 +46,16 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
 
   return (
     <View style={[styles.box, boxColorBorder]}>
-      <View style={[styles.task, boxColor]}>
+      <View style={[styles.taskTitle, boxColor]}>
         <Text style={styles.taskNameText}> {task.taskName} </Text>
+        <TouchableOpacity onPress={(e) => toggleTaskDone(e, id, status)}>
+        <TaskCheckButtom task={task} />
+      </TouchableOpacity>
       </View>
       <View style={styles.descriptionBox}>
         <Text style={styles.descriptionText}> <Text style={{ fontWeight: 'bold' }}>Why: </Text> {task.description} </Text>
       </View>
       {displayGoal()}
-      <TouchableOpacity onPress={(e) => toggleTaskDone(e, id, status)}>
-        <TaskCheckButtom task={task} />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -64,9 +65,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
-  task: {
+  taskTitle: {
+    flexDirection: 'row',
     alignSelf: 'stretch',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 5,
   },
   goalText: {
@@ -85,12 +88,13 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
   },
   box: {
+    backgroundColor: 'floralwhite',
     borderRadius: 5,
     justifyContent: 'space-between',
     margin: 10,
     paddingBottom: 10,
     width: 180,
-    height: 180,
+    height: 210,
   },
 });
 

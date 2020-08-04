@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Alert } from 'react-native';
 import ApiClient from '../ApiClient';
 import TaskCalendar from '../components/TaskCalendar';
 
@@ -10,7 +10,7 @@ const TaskDetails = ({ navigation, route }) => {
   const id = task.taskId;
   const taskColorBackground = {
     backgroundColor: task.color,
-  }
+  };
 
   const creationDate = () => {
     const date = new Date(task.creationDate);
@@ -26,13 +26,11 @@ const TaskDetails = ({ navigation, route }) => {
       'Are you sure you want to delete this task?',
       [{
         text: 'Cancel',
-        onPress: () => console.log('This task will be kept'),
         style: 'cancel',
       },
       {
         text: 'Ok',
         onPress: () => {
-          console.log('This task will be deleted');
           handleDeleteTask(id);
         },
       }],
@@ -73,7 +71,10 @@ const TaskDetails = ({ navigation, route }) => {
         <Text style={[styles.dataText, styles.capitalize]}>{task.type}</Text>
         <Text style={styles.titleText}>Your Daily Goal: </Text>
         <Text style={styles.dataText}>{task.goal}</Text>
-        <Text style={[styles.sectionText, taskColorBackground]}>Streaks</Text>
+        <View style={[styles.sectionBox, styles.streakView, taskColorBackground]}>
+          <Text style={styles.sectionText}>Streaks </Text>
+          <Image source={require('../assets/streak.png')} style={styles.imageButton} />
+        </View>
         <View style={styles.streakView}>
           <View>
             <Text style={[styles.titleText, {marginRight: 50}]}>Current: </Text>
@@ -85,17 +86,26 @@ const TaskDetails = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      <Text style={[styles.sectionText, taskColorBackground]}>Calendar: </Text>
+      <View style={[styles.sectionBox, styles.streakView, taskColorBackground]}>
+          <Text style={styles.sectionText}>Calendar  </Text>
+          <Image source={require('../assets/calendarcolor.png')} style={styles.imageButton} />
+        </View>
       <TaskCalendar task={task} />
       <View style={styles.actions}>
-        <Text
-          style={styles.deleteText}
-          onPress={() => confirmDelete(id)}
-        > Delete </Text>
-        <Text
-          style={styles.deleteText}
-          onPress={() => handleEditTask(id)}
-        > Edit </Text>
+        <View style={styles.actionBox}>
+          <Text
+            style={styles.deleteText}
+            onPress={() => confirmDelete(id)}
+          > Delete </Text>
+          <Image source={require('../assets/deletewhite.png')} style={styles.imageButton} />
+        </View>
+        <View style={styles.actionBox}>
+          <Text
+            style={styles.deleteText}
+            onPress={() => handleEditTask(id)}
+          > Edit </Text>
+          <Image source={require('../assets/editwhite.png')} style={styles.imageButton} />
+        </View>
       </View>
       </ScrollView>
     </SafeAreaView>
@@ -111,7 +121,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   boxTitle: {
-    justifyContent: 'center',
     alignSelf: 'stretch',
   },
   titleText: {
@@ -129,17 +138,20 @@ const styles = StyleSheet.create({
   sectionText: {
     fontSize: 21,
     fontWeight: 'bold',
-    marginBottom: 20,
-    paddingLeft: 20,
-    paddingVertical: 5,
-    alignSelf: 'stretch',
   },
   deleteText: {
     color: 'white',
-    backgroundColor: 'purple',
     fontSize: 20,
-    margin: 20,
-    padding: 10,
+    alignSelf: 'center',
+  },
+  actionBox: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#1A535C',
+    marginVertical: 20,
+    marginHorizontal: 10,
+    width: 120,
+    height: 50,
     borderRadius: 10,
   },
   capitalize: {
@@ -148,7 +160,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: 'white',
+    backgroundColor: 'ivory',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     paddingBottom: 20,
@@ -162,19 +174,24 @@ const styles = StyleSheet.create({
   },
   streakView: {
     flexDirection: 'row',
-  },
-  streakBubble: {
-    // marginRight: 20,
-    borderWidth: 5,
-    height: 50,
-    width: 50,
-    borderColor: 'lavender',
-    borderRadius: 50,
+    borderRadius: 10,
   },
   actions: {
     flexDirection: 'row',
     justifyContent: 'center',
-  }
+  },
+  sectionBox: {
+    padding: 5,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+  },
+  imageButton: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+    marginLeft: 5,
+  },
 });
 
 export default TaskDetails;

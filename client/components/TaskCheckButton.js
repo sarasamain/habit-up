@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 const TaskCheckButton = ({ task }) => {
   const { status } = task;
@@ -8,19 +8,17 @@ const TaskCheckButton = ({ task }) => {
   const handleCheck = () => {
     if (status === 'false') {
       return (
-        <Text>Mark as done</Text>
+        <Image source={require('../assets/untick.png')} style={styles.imageButton} />
       )
     } else if (status === 'true') {
       return (
-        <Text>Mark as undone</Text>
+        <Image source={require('../assets/tick.png')} style={styles.imageButton} />
       )
     }
   };
 
   return (
-    <View>
-      <Text style={styles.checkButton}> {handleCheck()} </Text>
-    </View>
+    handleCheck()
   );
 };
 
@@ -28,10 +26,15 @@ const styles = StyleSheet.create({
   checkButton: {
     fontWeight: 'bold',
     fontSize: 14,
-    backgroundColor: 'whitesmoke',
+    backgroundColor: 'white',
     borderRadius: 10,
     padding: 3,
+  },
+  imageButton: {
     alignSelf: 'center',
+    width: 40,
+    height: 40,
+    marginHorizontal: 10,
   },
 });
 

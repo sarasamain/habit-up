@@ -5,6 +5,9 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 const TaskCounter = ({ task, toggleTaskDoneCallback }) => {
   const id = task.taskId;
   let status = task.status;
+  const borderColor = {
+    borderColor: task.color,
+  };
   const [count, setCount] = useState(0);
 
   const increaseCount = (e) => {
@@ -20,23 +23,23 @@ const TaskCounter = ({ task, toggleTaskDoneCallback }) => {
   const decreaseCount = (e) => {
     e.stopPropagation();
     setCount((currentValue) => currentValue - 1);
-    if (count <= task.goal && task.status === 'true') {
+    if (count <= task.goal && count >= 0 && task.status === 'true') {
       toggleTaskDoneCallback(e, id, status);
       status = 'false';
     }
   };
 
   return (
-    <View style={styles.box}>
+    <View style={[styles.box, borderColor]}>
       <TouchableOpacity style={styles.button} onPress={(e) => decreaseCount(e)}>
         <View>
-          <Text> - </Text>
+          <Text style={styles.text}> - </Text>
         </View>
       </TouchableOpacity>
       <Text style={styles.text}> {count} </Text>
       <TouchableOpacity style={styles.button} onPress={(e) => increaseCount(e)}>
         <View>
-          <Text> + </Text>
+          <Text style={styles.text}> + </Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -46,7 +49,8 @@ const TaskCounter = ({ task, toggleTaskDoneCallback }) => {
 const styles = StyleSheet.create({
   box: {
     flexDirection: 'row',
-    backgroundColor: 'whitesmoke',
+    backgroundColor: 'white',
+    borderWidth: 1,
     borderRadius: 10,
     padding: 5,
     margin: 3,
@@ -55,12 +59,16 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 1,
-    borderColor: 'purple',
+    borderColor: 'slategrey',
     borderRadius: 5,
     paddingVertical: 3,
     paddingHorizontal: 5,
     marginHorizontal: 5,
   },
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  }
 });
 
 export default TaskCounter;

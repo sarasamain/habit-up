@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
 import TaskType from '../components/TaskType';
 
 const taskTypes = [
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     padding: 50,
-    backgroundColor: 'white',
+    backgroundColor: 'ivory',
   },
 });
 

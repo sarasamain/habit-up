@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput, SafeAreaView, Alert, Picker } from 'react-native';
+import { StyleSheet, Image, View, Text, TouchableOpacity, ScrollView, TextInput, SafeAreaView, Alert, Picker } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 import ApiClient from '../ApiClient';
 
@@ -123,7 +123,10 @@ const NewTaskForm = ({ navigation, route }) => {
           {displayType()}
         </View>
         <TouchableOpacity onPress={handleSubmit}>
-          <Text style={styles.add} >Add Task </Text>
+          <View style={styles.actionBox}>
+            <Image source={require('../assets/addwhite.png')} style={styles.imageButton} />
+            <Text style={styles.add}> Add Task </Text>
+          </View>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -133,7 +136,7 @@ const NewTaskForm = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'ivory',
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 30,
@@ -145,20 +148,15 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'lavender',
+    borderColor: 'slategrey',
     borderRadius: 5,
     padding: 5,
     marginBottom: 20,
+    backgroundColor: 'white',
   },
   add: {
-    backgroundColor: 'purple',
     color: 'white',
-    marginTop: 30,
-    marginHorizontal: 80,
-    padding: 20,
-    borderRadius: 10,
     fontSize: 20,
-    fontWeight: 'bold',
     alignSelf: 'center',
   },
   picker: {
@@ -166,12 +164,27 @@ const styles = StyleSheet.create({
   },
   pickerItem: {
     backgroundColor: 'lavender',
+    borderWidth: 1, 
+    borderColor: 'slategrey',
   },
   timeInput: {
     flexDirection: 'column',
   },
-  countInput: {
-
+  actionBox: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#1A535C',
+    marginVertical: 20,
+    marginHorizontal: 10,
+    width: 150,
+    height: 50,
+    borderRadius: 10,
+  },
+  imageButton: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+    marginLeft: 5,
   },
 });
 

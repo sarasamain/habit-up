@@ -1,55 +1,52 @@
 const tasksTable = (sequelize, DataTypes) => {
-
-  const Tasks = sequelize.define('Tasks', {
-
+  const Tasks = sequelize.define("Tasks", {
     taskid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     taskname: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     description: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     color: {
       allowNull: false,
-      type: DataTypes.STRING    // how do I hash it here?
+      type: DataTypes.STRING,
     },
     currentstreak: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     maxstreak: {
       allowNull: false,
-      type: DataTypes.INTEGER    // how do I hash it here?
+      type: DataTypes.INTEGER,
     },
     totaltime: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
-    tasktype: {    // can be 'check', 'time' or 'counter'
+    tasktype: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
-    taskdaily: {     // can be 'goal' or 'limit'
+    taskdaily: {
       allowNull: false,
-      type: DataTypes.STRING
-    }
-  })
+      type: DataTypes.STRING,
+    },
+  });
 
   Tasks.associate = (db) => {
     Tasks.belongsTo(Users, {
-      foreignKey: {allowNull: false },
+      foreignKey: { allowNull: false },
       onDelete: "CASCADE",
     });
-  }
+  };
 
   return Tasks;
-
-}
+};
 
 module.exports = tasksTable;

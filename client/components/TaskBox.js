@@ -42,7 +42,7 @@ const TaskBox = ({ task, needsRefreshCallback }) => {
   };
 
   const toggleTaskDone = async (e, id, status) => {
-    status = status === 'false' ? 'true' : 'false';
+    status = status === false ? true : false;
     e.stopPropagation();
     await ApiClient.updateTaskStatus(id, status);
     needsRefreshCallback();

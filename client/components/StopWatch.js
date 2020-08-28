@@ -62,11 +62,11 @@ const StopWatch = ({ task, toggleTaskDoneCallback }) => {
           if (
             time.hours >= timeGoal.hours &&
             time.mins >= timeGoal.mins &&
-            task.status === 'false'
+            task.status === false
           ) {
             Alert.alert('You have reached your goal for the day!');
             toggleTaskDoneCallback(e, id, status);
-            setStatus('true');
+            setStatus(true);
             setIsRunning(false);
           }
         }, 1000);

@@ -1,15 +1,25 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { StyleSheet, Image, View, Text, TouchableOpacity, ScrollView, TextInput, SafeAreaView, Alert, Picker } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+  SafeAreaView,
+  Alert,
+  Picker,
+} from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 import ApiClient from '../ApiClient';
 
 const taskColors = [
-  {colorCode: '#f9c74f', displayName: 'Yellow'},
-  {colorCode: '#90be6d', displayName: 'Green'},
-  {colorCode: 'pink', displayName: 'Pink'},
-  {colorCode: '#4ECDC4', displayName: 'Light Blue'},
-  {colorCode: '#FF6B6B', displayName: 'Light Red'},
+  { colorCode: '#f9c74f', displayName: 'Yellow' },
+  { colorCode: '#90be6d', displayName: 'Green' },
+  { colorCode: 'pink', displayName: 'Pink' },
+  { colorCode: '#4ECDC4', displayName: 'Light Blue' },
+  { colorCode: '#FF6B6B', displayName: 'Light Red' },
 ];
 
 const NewTaskForm = ({ navigation, route }) => {
@@ -33,7 +43,7 @@ const NewTaskForm = ({ navigation, route }) => {
               value={taskHours}
               keyboardType="numeric"
               onChangeText={setTaskHours}
-              />
+            />
             <Text> Minutes </Text>
             <TextInput
               style={styles.input}
@@ -58,7 +68,7 @@ const NewTaskForm = ({ navigation, route }) => {
           </View>
         </View>
       );
-    };
+    }
   };
 
   const handleSubmit = () => {
@@ -67,7 +77,12 @@ const NewTaskForm = ({ navigation, route }) => {
 
     if (!taskName || !taskDescription) {
       Alert.alert('All text inputs must be filled');
-    } if (parseInt(taskHours) < 0 || parseInt(taskMinutes) < 0 || parseInt(taskGoal) < 0) {
+    }
+    if (
+      parseInt(taskHours) < 0 ||
+      parseInt(taskMinutes) < 0 ||
+      parseInt(taskGoal) < 0
+    ) {
       Alert.alert('Please enter valid numbers');
     } else {
       const newTask = {
@@ -80,16 +95,15 @@ const NewTaskForm = ({ navigation, route }) => {
         hours: taskHours,
         minutes: taskMinutes,
         creationDate: Date.now(),
-        status: 'false',
+        status: false,
         currentStreak: 0,
         maxStreak: 0,
         history: {},
       };
-      ApiClient.postTask(newTask)
-        .then(() => {
-          navigation.navigate('TodayTasks', { needsRefresh });
-        });
-    };
+      ApiClient.postTask(newTask).then(() => {
+        navigation.navigate('TodayTasks', { needsRefresh });
+      });
+    }
   };
 
   return (
@@ -113,21 +127,22 @@ const NewTaskForm = ({ navigation, route }) => {
         />
         <Text style={styles.text}>Color</Text>
         <Picker
-          style={[styles.picker, {backgroundColor: taskColor}]}
+          style={[styles.picker, { backgroundColor: taskColor }]}
           selectedValue={taskColor}
-          onValueChange={itemValue =>
-            setTaskColor(itemValue)
-          }>
-            {taskColors.map(color => (
-              <Picker.Item style={styles.pickerItem} key={color.colorCode} label={color.displayName} value={color.colorCode} />
-              ))}
+          onValueChange={(itemValue) => setTaskColor(itemValue)}
+        >
+          {taskColors.map((color) => (
+            <Picker.Item
+              style={styles.pickerItem}
+              key={color.colorCode}
+              label={color.displayName}
+              value={color.colorCode}
+            />
+          ))}
         </Picker>
-        <View >
-          {displayType()}
-        </View>
+        <View>{displayType()}</View>
         <TouchableOpacity onPress={handleSubmit}>
           <View style={styles.actionBox}>
-            {/* <Image source={require('../assets/addwhite.png')} style={styles.imageButton} /> */}
             <Text style={styles.add}> Add Task </Text>
           </View>
         </TouchableOpacity>

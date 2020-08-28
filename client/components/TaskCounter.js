@@ -12,19 +12,19 @@ const TaskCounter = ({ task, toggleTaskDoneCallback }) => {
   const increaseCount = (e) => {
     e.stopPropagation();
     setCount((currentValue) => currentValue + 1);
-    if (count === task.goal - 1 && task.status === 'false') {
+    if (count === task.goal - 1 && task.status === false) {
       Alert.alert('You have reached your goal for the day!');
       toggleTaskDoneCallback(e, id, status);
-      status = 'true';
+      status = true;
     }
   };
 
   const decreaseCount = (e) => {
     e.stopPropagation();
     setCount((currentValue) => currentValue - 1);
-    if (count <= task.goal && count >= 0 && task.status === 'true') {
+    if (count <= task.goal && count >= 0 && task.status === true) {
       toggleTaskDoneCallback(e, id, status);
-      status = 'false';
+      status = false;
     }
   };
 

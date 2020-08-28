@@ -1,18 +1,18 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 
 const TaskCheckButton = ({ task }) => {
   const { status } = task;
 
   const handleCheck = () => {
-    if (status === 'false') {
+    if (status === false) {
       return (
         <Image
           source={require('../assets/untick.png')}
           style={styles.imageButton}
         />
       );
-    } else if (status === 'true') {
+    } else {
       return (
         <Image
           source={require('../assets/tick.png')}

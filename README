@@ -1,1 +1,23 @@
-This is a test. 
+#Welcome to HabitUp! 🌳 
+#
+##About HabitUp
+HabitUp is a habit tracker, created with the one and only purpose of helping users create a new habit. 
+
+##Running the project
+#
+What you need:
+*Code editor (ex. Visual Studio Code)
+*Web browser (ex. Chrome)
+*Expo App installed on your phone.
+#
+##Back end
+*Open the server folder and run `<npm i>` in the terminal.
+*Start the server by typing `<nodemon>` or `<node>` in your terminal. 
+*This will launch the server and connect you to the database!
+#
+##Front end
+*Open the client folder and run `<npm i>` in the terminal.
+*Start the app by typing `<npm start>`.
+*Open Expo App on your phone and scan the QR code.
+#
+You are all set! :rocket: 

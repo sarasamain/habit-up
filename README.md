@@ -9,8 +9,8 @@ The user journey starts in the main screen, where they can choose to see their t
 The new task will automatically appear in their dashboard, where they can perform actions such as mark it as completed for the day, run a stopwatch set for the time goal, or manually enter the result in the counter.</br>
 Clicking on a task redirects the user to a Task Details screen, where they can check out more details about their progress, such as streaks, and get a calendar view.</br>
 ![New Task](./screenshots/habitup-newtask.png)
-![Notification](./screenshots/habitup-notification.png)
 ![Dashboard](./screenshots/habitup-dashboard.png)
+![Notification](./screenshots/habitup-notification.png)
 ![Calendar](./screenshots/habitup-calendar.png)</br>
 
 ### Running the project 🚀

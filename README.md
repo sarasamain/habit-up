@@ -13,7 +13,7 @@ Clicking on a task redirects the user to a Task Details screen, where they can c
 ![Notification](./screenshots/habitup-notification.png)
 ![Calendar](./screenshots/habitup-calendar.png)</br>
 
-### Running the project 🚀
+### Getting started 🚀
 
 **What you need:**
 
@@ -35,7 +35,7 @@ Clicking on a task redirects the user to a Task Details screen, where they can c
 
 And you are all set! 🎉
 
-### Tech 👩‍💻
+### Tech stack 👩‍💻
 
 HabitUp has been created using:
 

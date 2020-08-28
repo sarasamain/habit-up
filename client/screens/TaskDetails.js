@@ -56,11 +56,6 @@ const TaskDetails = ({ navigation, route }) => {
 
   const handleEditTask = (id) => {
     const needsRefresh = true;
-
-    // ApiClient.deleteTask(id)
-    //   .then(() => {
-    //     navigation.navigate('Edit Form', { needsRefresh });
-    //   });
   };
 
   return (

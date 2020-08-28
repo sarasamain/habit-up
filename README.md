@@ -3,7 +3,7 @@
 ### About HabitUp ⏱
 
 HabitUp is a habit tracker, created with the one and only purpose of helping users create a new habit.</br>
-![](/home/chica/Documents/CODEWORKS/SENIOR/PORTFOLIO/GITHUB-IMAGES/habitup-home.png)
+![Home Screen](./screenshots/habitup-home.png)
 The user journey starts in the main screen, where they can choose to see their tasks for the day or get inspired with quotes.</br>
 Once in their dashboard, they can choose to create a New Task (habit) through filling in a form.</br>
 The new task will automatically appear in their dashboard, where they can perform actions such as mark it as completed for the day, run a stopwatch set for the time goal, or manually enter the result in the counter.</br>

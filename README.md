@@ -1,6 +1,6 @@
-## Welcome to HabitUp! 🌳
+## Welcome to HabitUp! 🌱
 
-### About HabitUp
+### About HabitUp ⏱
 
 HabitUp is a habit tracker, created with the one and only purpose of helping users create a new habit.</br>
 The user journey starts in the main screen, where they can choose to see their tasks for the day or get inspired with quotes.</br>
@@ -8,7 +8,7 @@ Once in their dashboard, they can choose to create a New Task (habit) through fi
 The new task will automatically appear in their dashboard, where they can perform actions such as mark it as completed for the day, run a stopwatch set for the time goal, or manually enter the result in the counter.</br>
 Clicking on a task redirects the user to a Task Details screen, where they can check out more details about their progress, such as streaks, and get a calendar view.</br>
 
-### Running the project
+### Running the project 🚀
 
 **What you need:**
 
@@ -28,11 +28,13 @@ Clicking on a task redirects the user to a Task Details screen, where they can c
 2. Start the app by typing `<npm start>`.
 3. Open Expo App on your phone and scan the QR code.
 
-### Tech
+And you are all set! 🎉
+
+### Tech 👩‍💻
 
 HabitUp has been created using:
 
 **Front end:** React Native, Expo, CSS.
 **Back end:** Express, Node.js, PostgresQL, Sequelize.
 
-You are all set! 🚀 🚀 🚀
+🌳

@@ -2,7 +2,7 @@
 
 ### About HabitUp ⏱
 
-HabitUp is a habit tracker, created with the one and only purpose of helping users create a new habit.</br>
+HabitUp is a habit tracker, created with the one and only purpose of helping users create a new habit by helping them be accountable.</br>
 ![Home Screen](./screenshots/habitup-home.png)</br>
 Once in their dashboard, they can choose to create a New Task (habit) through filling in a form.</br>
 The user journey starts in the main screen, where they can choose to see their tasks for the day or get inspired with quotes.</br>
